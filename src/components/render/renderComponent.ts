@@ -15,7 +15,6 @@ export const renderComponent = (config: any) => {
       {
         id: config.id,
         key: config.id,
-        className: config.className ? config.className : null,
         ariaHidden: config.ariaHidden ? config.ariaHidden : null,
         style: config.styles ? stylesMap(config.styles) : null,
       },

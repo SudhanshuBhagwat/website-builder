@@ -20,14 +20,9 @@ const initialState: ElementsState = {
 function findElement(elementId: string, tree: any): any {
   if (tree.id === elementId) return tree;
   if (Array.isArray(tree.children)) {
-    const newElements = tree.children.map((child: any) => {
+    tree.children.map((child: any) => {
       return findElement(elementId, child);
     });
-
-    return {
-      ...tree,
-      children: newElements,
-    };
   }
 }
 
@@ -86,5 +81,12 @@ export const elementsSlice = createSlice({
 export const { selectElement } = elementsSlice.actions;
 
 export const selectElements = (state: RootState) => state.elements.elements;
+export const getSelectedElement = ({ elements }: RootState) => {
+  if (elements.selectedElementId) {
+    console.log(elements.selectedElementId);
+    return findElement(elements.selectedElementId, elements.elements);
+  }
+  return undefined;
+};
 
 export default elementsSlice.reducer;

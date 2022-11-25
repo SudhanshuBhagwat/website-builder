@@ -1,14 +1,57 @@
 export const data = {
   component: "li",
   id: "cardWrapper",
-  className: "col-span-1 flex shadow-sm rounded-md",
+  styles: [
+    {
+      name: "boxShadow",
+      value: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+    },
+    {
+      name: "display",
+      value: "flex",
+    },
+    {
+      name: "gridColumn",
+      value: "span 1 / span 1",
+    },
+  ],
   children: [
     {
       component: "div",
       id: "initialWrapper",
-      className:
-        "flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md",
       styles: [
+        {
+          name: "flexShrink",
+          value: "0",
+        },
+        {
+          name: "display",
+          value: "flex",
+        },
+        {
+          name: "alignItems",
+          value: "center",
+        },
+        {
+          name: "justifyContent",
+          value: "center",
+        },
+        {
+          name: "textColor",
+          value: "#FFF",
+        },
+        {
+          name: "width",
+          value: "4rem",
+        },
+        {
+          name: "fontWeight",
+          value: "500",
+        },
+        {
+          name: "fontSize",
+          value: "0.875rem",
+        },
         {
           name: "backgroundColor",
           value: "#6366F1",
@@ -19,25 +62,92 @@ export const data = {
     {
       component: "div",
       id: "infoWrapper",
-      className:
-        "flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate",
+      styles: [
+        {
+          name: "display",
+          value: "flex",
+        },
+        {
+          name: "flex",
+          value: "1 1 0%",
+        },
+        {
+          name: "alignItems",
+          value: "center",
+        },
+        {
+          name: "justifyContent",
+          value: "space-between",
+        },
+        {
+          name: "borderTop",
+          value: "1px",
+        },
+        {
+          name: "borderRight",
+          value: "1px",
+        },
+        {
+          name: "borderBottom",
+          value: "1px",
+        },
+        {
+          name: "borderColor",
+          value: "#e5e7eb",
+        },
+        {
+          name: "backgroundColor",
+          value: "#FFF",
+        },
+      ],
       children: [
         {
           component: "div",
           id: "info",
-          className: "flex-1 px-4 py-2 text-sm truncate",
+          styles: [
+            {
+              name: "flex",
+              value: "1 1 0%",
+            },
+            {
+              name: "paddingInline",
+              value: "1rem",
+            },
+            {
+              name: "paddingBlock",
+              value: "0.5rem",
+            },
+            {
+              name: "fontSize",
+              value: "0.875rem",
+            },
+          ],
           children: [
             {
               component: "p",
               id: "title",
-              className: "text-gray-900 font-medium hover:text-gray-600",
               children: "GraphQL",
+              styles: [
+                {
+                  name: "color",
+                  value: "#4b5563",
+                },
+                {
+                  name: "fontweight",
+                  value: "500",
+                },
+              ],
             },
             {
               component: "p",
               id: "readTime",
-              className: "text-gray-500",
               children: "10 min read",
+              styles: [
+                {
+                  name: "color",
+                  value: "#6b7280",
+                },
+              ],
             },
           ],
         },
