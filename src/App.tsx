@@ -5,8 +5,10 @@ import { selectElement } from "./store/elementsSlice";
 import { store } from "./store/store";
 
 function handleClick(event: MouseEvent) {
-  const elementId = event.target?.id;
-  store.dispatch(selectElement(elementId));
+  if (document.getElementById("component-view")?.contains(event.target)) {
+    const elementId = event.target?.id;
+    store.dispatch(selectElement(elementId));
+  }
 }
 
 function App() {
@@ -21,14 +23,7 @@ function App() {
   return (
     <div className="bg-slate-50 h-screen grid grid-cols-3">
       <main className="bg-slate-50 h-full col-span-2 flex justify-center items-center">
-        <div>
-          <label className="tracking-wider uppercase text-sm font-medium">
-            Component
-          </label>
-          <div className="h-80 aspect-video shadow-xl border flex justify-center items-center">
-            <View />
-          </div>
-        </div>
+        <View />
       </main>
       <Editor />
     </div>

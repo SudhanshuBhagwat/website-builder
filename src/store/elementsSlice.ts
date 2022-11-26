@@ -18,10 +18,29 @@ const initialState: ElementsState = {
 };
 
 function findElement(elementId: string, tree: any): any {
-  if (tree.id === elementId) return tree;
+  if (tree.id === elementId) {
+    return tree;
+  }
+  if (Array.isArray(tree.children)) {
+    const child = tree.children.find((child: any) =>
+      findElement(elementId, child)
+    );
+    return findElement(elementId, child);
+  }
+}
+
+function _updateElement(tree: any, elementId: string, value: string): any {
+  if (tree.id === elementId) {
+    console.log(value);
+    if (value.length === 0) {
+      tree.children = "Temp";
+    } else {
+      tree.children = value;
+    }
+  }
   if (Array.isArray(tree.children)) {
     tree.children.map((child: any) => {
-      return findElement(elementId, child);
+      _updateElement(child, elementId, value);
     });
   }
 }
@@ -75,16 +94,31 @@ export const elementsSlice = createSlice({
         state.selectedElementId = action.payload;
       }
     },
+    updateElement: (
+      state,
+      action: PayloadAction<{
+        type: "text" | "style";
+        payload: { elementId: string; value: string };
+      }>
+    ) => {
+      if (action.payload.type === "text") {
+        _updateElement(
+          state.elements,
+          action.payload.payload.elementId,
+          action.payload.payload.value
+        );
+      }
+    },
   },
 });
 
-export const { selectElement } = elementsSlice.actions;
+export const { selectElement, updateElement } = elementsSlice.actions;
 
 export const selectElements = (state: RootState) => state.elements.elements;
 export const getSelectedElement = ({ elements }: RootState) => {
   if (elements.selectedElementId) {
-    console.log(elements.selectedElementId);
-    return findElement(elements.selectedElementId, elements.elements);
+    const element = findElement(elements.selectedElementId, elements.elements);
+    return element;
   }
   return undefined;
 };

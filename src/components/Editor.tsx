@@ -1,21 +1,49 @@
+import { ChangeEvent } from "react";
 import { useSelector } from "react-redux";
-import { getSelectedElement } from "../store/elementsSlice";
+import { useAppDispatch } from "../hooks/redux";
+import { getSelectedElement, updateElement } from "../store/elementsSlice";
 
 const Editor = () => {
+  const dispatch = useAppDispatch();
   const element = useSelector(getSelectedElement);
-  console.log(element);
+  let isChildString = false;
+
+  if (element && element.children) {
+    if (typeof element.children === "string") {
+      isChildString = true;
+    }
+  }
 
   return (
-    <aside className="h-full shadow-md px-6 pt-6 flex flex-col space-y-6">
-      <div className="flex flex-col space-y-4">
-        <label>Inner Text</label>
-        <div className="">
-          <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg w-full">
-            <span className="text-sm text-slate-500 border-r-2 pr-4">Text</span>
-            <input type="text" className="w-full outline-none mx-2" />
+    <aside className="h-full shadow-md px-6 py-6 flex flex-col space-y-6 overflow-y-auto">
+      {isChildString && (
+        <div className="flex flex-col space-y-4">
+          <label>Inner Text</label>
+          <div className="">
+            <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg w-full">
+              <span className="text-sm text-slate-500 border-r-2 pr-4">
+                Text
+              </span>
+              <input
+                type="text"
+                className="w-full outline-none mx-2"
+                value={element.children}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  dispatch(
+                    updateElement({
+                      type: "text",
+                      payload: {
+                        elementId: element.id,
+                        value: event.target.value,
+                      },
+                    })
+                  );
+                }}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="flex flex-col space-y-4">
         <label>Padding</label>
         <div className="border-2 border-dashed rounded-lg h-52 relative px-10 py-6 flex justify-center items-center">
