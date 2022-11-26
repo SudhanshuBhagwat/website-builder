@@ -1,4 +1,6 @@
-export const data = {
+import { IComponent } from "../store/elementsSlice";
+
+export const data: IComponent = {
   component: "li",
   id: "cardWrapper",
   styles: [

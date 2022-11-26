@@ -14,6 +14,21 @@ const Editor = () => {
     }
   }
 
+  function handleTextUpdate(event: ChangeEvent<HTMLInputElement>) {
+    dispatch(
+      updateElement({
+        type: "text",
+        elementId: element.id,
+        value: event.target.value,
+      })
+    );
+  }
+
+  function handleBorderRadiusInput(
+    type: "TopLeft" | "TopRight" | "BottomLeft" | "BottomRight",
+    value: number
+  ) {}
+
   return (
     <div>
       {isChildString && (
@@ -28,17 +43,7 @@ const Editor = () => {
                 type="text"
                 className="w-full outline-none mx-2"
                 value={element.children}
-                onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                  dispatch(
-                    updateElement({
-                      type: "text",
-                      payload: {
-                        elementId: element.id,
-                        value: event.target.value,
-                      },
-                    })
-                  );
-                }}
+                onChange={handleTextUpdate}
               />
             </div>
           </div>
@@ -109,23 +114,56 @@ const Editor = () => {
         <label>Border Radius</label>
         <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg">
-            <span className="text-sm text-slate-500 border-r-2 pr-4">T</span>
-            <input type="text" className="w-full outline-none mx-2" />
+            <span className="text-sm text-slate-500 border-r-2 pr-4">TL</span>
+            <input
+              type="text"
+              className="w-full outline-none mx-2"
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                handleBorderRadiusInput("TopLeft", parseInt(event.target.value))
+              }
+            />
             <span className="text-sm text-slate-500">PX</span>
           </div>
           <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg">
-            <span className="text-sm text-slate-500 border-r-2 pr-4">R</span>
-            <input type="text" className="w-full outline-none mx-2" />
+            <span className="text-sm text-slate-500 border-r-2 pr-4">TR</span>
+            <input
+              type="text"
+              className="w-full outline-none mx-2"
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                handleBorderRadiusInput(
+                  "TopRight",
+                  parseInt(event.target.value)
+                )
+              }
+            />
             <span className="text-sm text-slate-500">PX</span>
           </div>
           <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg">
-            <span className="text-sm text-slate-500 border-r-2 pr-4">B</span>
-            <input type="text" className="w-full outline-none mx-2" />
+            <span className="text-sm text-slate-500 border-r-2 pr-4">BL</span>
+            <input
+              type="text"
+              className="w-full outline-none mx-2"
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                handleBorderRadiusInput(
+                  "BottomLeft",
+                  parseInt(event.target.value)
+                )
+              }
+            />
             <span className="text-sm text-slate-500">PX</span>
           </div>
           <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg">
-            <span className="text-sm text-slate-500 border-r-2 pr-4">L</span>
-            <input type="text" className="w-full outline-none mx-2" />
+            <span className="text-sm text-slate-500 border-r-2 pr-4">BR</span>
+            <input
+              type="text"
+              className="w-full outline-none mx-2"
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                handleBorderRadiusInput(
+                  "BottomRight",
+                  parseInt(event.target.value)
+                )
+              }
+            />
             <span className="text-sm text-slate-500">PX</span>
           </div>
         </div>

@@ -10,7 +10,7 @@ const View = () => {
       <label className="tracking-wider uppercase text-sm font-medium">
         Component
       </label>
-      <div className="h-80 aspect-video shadow-xl border flex justify-center items-center">
+      <div className="h-80 aspect-video shadow-xl border flex justify-center items-center rounded-md">
         <div id="component-view">{renderComponent(data)}</div>
       </div>
     </div>

@@ -7,6 +7,20 @@ const SELECTED_STYLE = {
   value: "2px solid blue",
 };
 
+type UPDATE_ELEMENT_TYPE = "text" | "style";
+
+export interface IComponent {
+  component: keyof HTMLElementTagNameMap;
+  id: string;
+  styles: IStyle[];
+  children: IComponent[] | string;
+}
+
+export interface IStyle {
+  name: string;
+  value: string;
+}
+
 interface ElementsState {
   elements: any;
   selectedElementId: string | undefined;
@@ -29,23 +43,38 @@ function findElement(elementId: string, tree: any): any {
   }
 }
 
-function _updateElement(tree: any, elementId: string, value: string): any {
+function updateText(treeNode: IComponent["children"], value: string) {
+  if (value.length === 0) {
+    treeNode = "Temp";
+  } else {
+    treeNode = value;
+  }
+}
+
+function _updateElement(
+  tree: IComponent,
+  type: UPDATE_ELEMENT_TYPE,
+  elementId: string,
+  value: string
+) {
   if (tree.id === elementId) {
-    console.log(value);
-    if (value.length === 0) {
-      tree.children = "Temp";
-    } else {
-      tree.children = value;
+    switch (type) {
+      case "text":
+        updateText(tree.children, value);
+        break;
+      default:
+        console.error("No such element");
+        break;
     }
   }
   if (Array.isArray(tree.children)) {
-    tree.children.map((child: any) => {
-      _updateElement(child, elementId, value);
+    tree.children.map((child: IComponent) => {
+      _updateElement(child, type, elementId, value);
     });
   }
 }
 
-function addStyle(elementId: string, tree: any, style: any): any {
+function addStyle(elementId: string, tree: IComponent, style: IStyle) {
   if (tree.id === elementId) {
     if (tree.styles) {
       tree.styles = [...tree.styles, style];
@@ -54,22 +83,22 @@ function addStyle(elementId: string, tree: any, style: any): any {
     }
   }
   if (Array.isArray(tree.children)) {
-    tree.children.map((child: any) => {
+    tree.children.map((child: IComponent) => {
       addStyle(elementId, child, style);
     });
   }
 }
 
-function removeStyle(elementId: string, tree: any, style: any): any {
+function removeStyle(elementId: string, tree: IComponent, style: IStyle) {
   if (tree.id === elementId) {
     if (tree.styles) {
       tree.styles = tree.styles.filter(
-        (currStyle: any) => currStyle.name !== style.name
+        (currStyle: IStyle) => currStyle.name !== style.name
       );
     }
   }
   if (Array.isArray(tree.children)) {
-    tree.children.map((child: any) => {
+    tree.children.map((child: IComponent) => {
       removeStyle(elementId, child, style);
     });
   }
@@ -97,17 +126,17 @@ export const elementsSlice = createSlice({
     updateElement: (
       state,
       action: PayloadAction<{
-        type: "text" | "style";
-        payload: { elementId: string; value: string };
+        elementId: string;
+        value: string;
+        type: UPDATE_ELEMENT_TYPE;
       }>
     ) => {
-      if (action.payload.type === "text") {
-        _updateElement(
-          state.elements,
-          action.payload.payload.elementId,
-          action.payload.payload.value
-        );
-      }
+      _updateElement(
+        state.elements,
+        action.payload.type,
+        action.payload.elementId,
+        action.payload.value
+      );
     },
   },
 });

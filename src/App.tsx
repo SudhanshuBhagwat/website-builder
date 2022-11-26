@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="bg-slate-50 h-screen grid grid-cols-3">
-      <main className="bg-slate-50 h-full col-span-2 flex justify-center items-center">
+      <main className="h-full col-span-2 flex justify-center items-center">
         <View />
       </main>
       <aside className="h-full shadow-md px-6 py-6 flex flex-col space-y-6 overflow-y-auto">
