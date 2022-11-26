@@ -28,35 +28,37 @@ const Editor = () => {
   }
 
   return (
-    <div className="flex flex-col space-y-4">
-      {isChildString && (
-        <div className="flex flex-col space-y-4">
-          <label>Inner Text</label>
-          <div className="">
-            <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg w-full">
-              <span className="text-sm text-slate-500 border-r-2 pr-4">
-                Text
-              </span>
-              <input
-                type="text"
-                className="w-full outline-none mx-2"
-                value={element.children}
-                onChange={handleTextUpdate}
-              />
+    element && (
+      <aside className="h-full w-1/4 shadow-md px-6 py-6 flex flex-col space-y-4 overflow-y-auto">
+        {isChildString && (
+          <div className="flex flex-col space-y-4">
+            <label>Inner Text</label>
+            <div className="">
+              <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg w-full">
+                <span className="text-sm text-slate-500 border-r-2 pr-4">
+                  Text
+                </span>
+                <input
+                  type="text"
+                  className="w-full outline-none mx-2"
+                  value={element.children}
+                  onChange={handleTextUpdate}
+                />
+              </div>
             </div>
           </div>
+        )}
+        <PaddingMargin />
+        <div className="flex flex-col space-y-4">
+          <label>Size</label>
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="W" />
+            <Input label="H" />
+          </div>
         </div>
-      )}
-      <PaddingMargin />
-      <div className="flex flex-col space-y-4">
-        <label>Size</label>
-        <div className="grid grid-cols-2 gap-4">
-          <Input label="W" />
-          <Input label="H" />
-        </div>
-      </div>
-      <BorderRadius elementId={element?.id} />
-    </div>
+        <BorderRadius elementId={element?.id} />
+      </aside>
+    )
   );
 };
 
