@@ -51,16 +51,32 @@ function updateText(treeNode: IComponent["children"], value: string) {
   }
 }
 
+function updateStyles(tree: IComponent, styles: IStyle) {
+  const currStyle = tree.styles.find((style) => style.name === styles.name);
+  if (currStyle) {
+    currStyle.value = `${styles.value}px`;
+  } else {
+    tree.styles.push({
+      name: styles.name,
+      value: `${styles.value}px`,
+    });
+  }
+  console.log(current(tree))
+}
+
 function _updateElement(
   tree: IComponent,
   type: UPDATE_ELEMENT_TYPE,
   elementId: string,
-  value: string
+  value: string | IStyle
 ) {
   if (tree.id === elementId) {
     switch (type) {
       case "text":
-        updateText(tree.children, value);
+        updateText(tree.children, value as string);
+        break;
+      case "style":
+        updateStyles(tree, value as IStyle);
         break;
       default:
         console.error("No such element");
@@ -127,7 +143,7 @@ export const elementsSlice = createSlice({
       state,
       action: PayloadAction<{
         elementId: string;
-        value: string;
+        value: string | IStyle;
         type: UPDATE_ELEMENT_TYPE;
       }>
     ) => {

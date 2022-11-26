@@ -1,7 +1,11 @@
 import { ChangeEvent } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../hooks/redux";
-import { getSelectedElement, updateElement } from "../store/elementsSlice";
+import {
+  getSelectedElement,
+  IStyle,
+  updateElement,
+} from "../store/elementsSlice";
 
 const Editor = () => {
   const dispatch = useAppDispatch();
@@ -26,8 +30,20 @@ const Editor = () => {
 
   function handleBorderRadiusInput(
     type: "TopLeft" | "TopRight" | "BottomLeft" | "BottomRight",
-    value: number
-  ) {}
+    value: string
+  ) {
+    const style: IStyle = {
+      name: `border${type}Radius`,
+      value,
+    };
+    dispatch(
+      updateElement({
+        type: "style",
+        elementId: element.id,
+        value: style,
+      })
+    );
+  }
 
   return (
     <div>
@@ -119,7 +135,7 @@ const Editor = () => {
               type="text"
               className="w-full outline-none mx-2"
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                handleBorderRadiusInput("TopLeft", parseInt(event.target.value))
+                handleBorderRadiusInput("TopLeft", event.target.value)
               }
             />
             <span className="text-sm text-slate-500">PX</span>
@@ -130,10 +146,7 @@ const Editor = () => {
               type="text"
               className="w-full outline-none mx-2"
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                handleBorderRadiusInput(
-                  "TopRight",
-                  parseInt(event.target.value)
-                )
+                handleBorderRadiusInput("TopRight", event.target.value)
               }
             />
             <span className="text-sm text-slate-500">PX</span>
@@ -144,10 +157,7 @@ const Editor = () => {
               type="text"
               className="w-full outline-none mx-2"
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                handleBorderRadiusInput(
-                  "BottomLeft",
-                  parseInt(event.target.value)
-                )
+                handleBorderRadiusInput("BottomLeft", event.target.value)
               }
             />
             <span className="text-sm text-slate-500">PX</span>
@@ -158,10 +168,7 @@ const Editor = () => {
               type="text"
               className="w-full outline-none mx-2"
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                handleBorderRadiusInput(
-                  "BottomRight",
-                  parseInt(event.target.value)
-                )
+                handleBorderRadiusInput("BottomRight", event.target.value)
               }
             />
             <span className="text-sm text-slate-500">PX</span>

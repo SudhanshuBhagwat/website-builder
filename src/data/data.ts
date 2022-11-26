@@ -99,7 +99,7 @@ export const data: IComponent = {
         },
         {
           name: "backgroundColor",
-          value: "#FFF",
+          value: "#e2e2e2",
         },
       ],
       children: [
