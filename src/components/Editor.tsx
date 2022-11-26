@@ -15,7 +15,7 @@ const Editor = () => {
   }
 
   return (
-    <aside className="h-full shadow-md px-6 py-6 flex flex-col space-y-6 overflow-y-auto">
+    <div>
       {isChildString && (
         <div className="flex flex-col space-y-4">
           <label>Inner Text</label>
@@ -130,7 +130,7 @@ const Editor = () => {
           </div>
         </div>
       </div>
-    </aside>
+    </div>
   );
 };
 
