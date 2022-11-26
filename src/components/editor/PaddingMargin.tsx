@@ -25,7 +25,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = () => {
           className="absolute h-8 w-8 bottom-1 left-1/2 -ml-4 border text-center"
         />
         <div className="h-4/5 w-full border-2 border-blue-400 rounded-lg relative flex justify-center items-center">
-          <div className="h-10 w-3/4 bg-slate-200 rounded-lg"></div>
+          <div className="h-10 w-2/4 bg-slate-200 rounded-lg"></div>
           <input
             type="number"
             className="absolute h-8 w-8 top-1 left-1/2 -ml-4 border text-center"

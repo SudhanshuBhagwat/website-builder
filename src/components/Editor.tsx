@@ -4,6 +4,7 @@ import { useAppDispatch } from "../hooks/redux";
 import { getSelectedElement, updateElement } from "../store/elementsSlice";
 import BorderRadius from "./editor/BorderRadius";
 import PaddingMargin from "./editor/PaddingMargin";
+import Input from "./primitives/Input";
 
 const Editor = () => {
   const dispatch = useAppDispatch();
@@ -50,16 +51,8 @@ const Editor = () => {
       <div className="flex flex-col space-y-4">
         <label>Size</label>
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg">
-            <span className="text-sm text-slate-500 border-r-2 pr-4">W</span>
-            <input type="text" className="w-full outline-none mx-2" />
-            <span className="text-sm text-slate-500">PX</span>
-          </div>
-          <div className="flex items-center px-4 py-2 gap-2 border-2 rounded-lg">
-            <span className="text-sm text-slate-500 border-r-2 pr-4">H</span>
-            <input type="text" className="w-full outline-none mx-2" />
-            <span className="text-sm text-slate-500">PX</span>
-          </div>
+          <Input label="W" />
+          <Input label="H" />
         </div>
       </div>
       <BorderRadius elementId={element?.id} />
