@@ -28,12 +28,14 @@ const LayerItem: React.FC<React.PropsWithChildren<Props> & Props> = ({
       } flex`}
       onClick={() => dispatch(selectElement(id))}
     >
-      <span className="w-12 aspect-square bg-slate-200 flex justify-center items-center uppercase tracking-widest text-xs">
-        {component}
-      </span>
-      <div className="w-full text-sm flex justify-between items-center pl-4 pr-3">
-        <p className="w-full flex items-center">{id}</p>
+      <button className="flex items-center justify-center px-2">
         <FiChevronDown className="w-6 h-6 text-slate-600" />
+      </button>
+      <div className="w-full text-sm flex justify-between items-center pl-1">
+        <p className="w-full flex items-center">{id}</p>
+        <span className="w-[40px] h-[40px] aspect-square bg-slate-200 flex justify-center items-center uppercase tracking-widest text-xs">
+          {component}
+        </span>
       </div>
     </div>
   );

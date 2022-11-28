@@ -61,7 +61,6 @@ function updateStyles(tree: IComponent, styles: IStyle) {
       value: `${styles.value}px`,
     });
   }
-  console.log(current(tree));
 }
 
 function _updateElement(
