@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { selectElements } from "../store/elementsSlice";
+import { IComponent, selectElements } from "../store/elementsSlice";
 import { renderComponent } from "./render/renderComponent";
 
 const View = () => {
-  const data = useSelector(selectElements);
+  const data: IComponent = useSelector(selectElements);
 
   return (
     <div id="component-view">
