@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 import { data } from "../data/data";
 
@@ -43,11 +43,11 @@ function findElement(elementId: string, tree: any): any {
   }
 }
 
-function updateText(treeNode: IComponent["children"], value: string) {
+function updateText(treeNode: IComponent, value: string) {
   if (value.length === 0) {
-    treeNode = "Temp";
+    treeNode.children = "Temp";
   } else {
-    treeNode = value;
+    treeNode.children = value;
   }
 }
 
@@ -72,7 +72,7 @@ function _updateElement(
   if (tree.id === elementId) {
     switch (type) {
       case "text":
-        updateText(tree.children, value as string);
+        updateText(tree, value as string);
         break;
       case "style":
         updateStyles(tree, value as IStyle);

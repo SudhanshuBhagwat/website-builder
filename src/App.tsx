@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="flex w-full">
       <aside className="flex">
-        <nav className="w-14 bg-red-200 h-full flex flex-col items-center">
+        <nav className="w-14 py-4 bg-slate-200 h-full flex flex-col items-center">
           <FiLayers className="w-6 h-6" />
         </nav>
         <Layers />
