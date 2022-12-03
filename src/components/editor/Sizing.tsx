@@ -12,7 +12,7 @@ const Sizing: React.FC<React.PropsWithChildren<Props> & Props> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  function handleBorderRadiusInput(type: "height" | "width", value: string) {
+  function handleSizingInput(type: "height" | "width", value: string) {
     const style: IStyle = {
       name: type,
       value,
@@ -33,13 +33,13 @@ const Sizing: React.FC<React.PropsWithChildren<Props> & Props> = ({
         <Input
           label="W"
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleBorderRadiusInput("width", event.target.value)
+            handleSizingInput("width", event.target.value)
           }
         />
         <Input
           label="H"
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleBorderRadiusInput("height", event.target.value)
+            handleSizingInput("height", event.target.value)
           }
         />
       </div>

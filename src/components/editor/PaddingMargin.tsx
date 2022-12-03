@@ -1,6 +1,34 @@
-interface Props {}
+import { ChangeEvent } from "react";
+import { useAppDispatch } from "../../hooks/redux";
+import { IStyle, updateElement } from "../../store/elementsSlice";
 
-const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = () => {
+interface Props {
+  elementId: string;
+}
+
+const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
+  elementId,
+}) => {
+  const dispatch = useAppDispatch();
+
+  function handleBoxSizingInput(
+    type: "margin" | "padding",
+    direction: "Top" | "Right" | "Bottom" | "Left",
+    value: string
+  ) {
+    const style: IStyle = {
+      name: `${type}${direction}`,
+      value,
+    };
+    dispatch(
+      updateElement({
+        type: "style",
+        elementId,
+        value: style,
+      })
+    );
+  }
+
   return (
     <div className="flex flex-col space-y-4">
       <label>Padding</label>
@@ -10,36 +38,60 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = () => {
         </span>
         <input
           type="number"
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleBoxSizingInput("margin", "Left", event.target.value)
+          }
           className="absolute h-8 w-8 top-1 left-1/2 -ml-4 border text-center"
         />
         <input
           type="number"
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleBoxSizingInput("margin", "Top", event.target.value)
+          }
           className="absolute h-8 w-8 top-1/2 left-1 -mt-4 border text-center"
         />
         <input
           type="number"
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleBoxSizingInput("margin", "Right", event.target.value)
+          }
           className="absolute h-8 w-8 top-1/2 right-1 -mt-4 border text-center"
         />
         <input
           type="number"
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleBoxSizingInput("margin", "Bottom", event.target.value)
+          }
           className="absolute h-8 w-8 bottom-1 left-1/2 -ml-4 border text-center"
         />
         <div className="h-4/5 w-full border-2 border-blue-400 rounded-lg relative flex justify-center items-center">
           <div className="h-10 w-2/4 bg-slate-200 rounded-lg"></div>
           <input
             type="number"
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleBoxSizingInput("padding", "Top", event.target.value)
+            }
             className="absolute h-8 w-8 top-1 left-1/2 -ml-4 border text-center"
           />
           <input
             type="number"
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleBoxSizingInput("padding", "Left", event.target.value)
+            }
             className="absolute h-8 w-8 top-1/2 left-1 -mt-4 border text-center"
           />
           <input
             type="number"
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleBoxSizingInput("padding", "Right", event.target.value)
+            }
             className="absolute h-8 w-8 top-1/2 right-1 -mt-4 border text-center"
           />
           <input
             type="number"
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleBoxSizingInput("padding", "Bottom", event.target.value)
+            }
             className="absolute h-8 w-8 bottom-1 left-1/2 -ml-4 border text-center"
           />
           <span className="uppercase tracking-wider text-xs absolute bottom-2 right-2">

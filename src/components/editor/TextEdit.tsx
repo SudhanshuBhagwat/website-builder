@@ -12,6 +12,7 @@ const TextEdit: React.FC<React.PropsWithChildren<Props> & Props> = ({
   value,
 }) => {
   const dispatch = useAppDispatch();
+
   function handleTextUpdate(event: ChangeEvent<HTMLInputElement>) {
     dispatch(
       updateElement({
