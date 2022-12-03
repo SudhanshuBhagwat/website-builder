@@ -40,7 +40,7 @@ const Editor = () => {
                 </span>
                 <input
                   type="text"
-                  className="w-full outline-none mx-2"
+                  className="w-full outline-none mx-2 bg-slate-50"
                   value={element.children}
                   onChange={handleTextUpdate}
                 />

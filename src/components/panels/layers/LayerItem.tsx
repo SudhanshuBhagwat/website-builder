@@ -1,11 +1,11 @@
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks/redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import {
   getSelectedElement,
   IComponent,
   selectElement,
-} from "../../store/elementsSlice";
+} from "../../../store/elementsSlice";
 
 interface Props {
   id: IComponent["id"];

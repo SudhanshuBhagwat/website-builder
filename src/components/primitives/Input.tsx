@@ -16,7 +16,7 @@ const Input: React.FC<React.PropsWithChildren<Props> & Props> = ({
       <span className="text-sm text-slate-500 border-r-2 pr-4">{label}</span>
       <input
         type="text"
-        className="w-full outline-none mx-2"
+        className="w-full outline-none mx-2 bg-slate-50"
         value={value}
         onChange={onChange}
       />

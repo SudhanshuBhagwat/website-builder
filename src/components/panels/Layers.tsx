@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { IComponent, selectElements } from "../store/elementsSlice";
+import { IComponent, selectElements } from "../../store/elementsSlice";
 import LayerItem from "./layers/LayerItem";
 
 interface Props {}
