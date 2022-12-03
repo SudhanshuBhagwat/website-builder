@@ -1,7 +1,7 @@
 import { IComponent } from "../store/elementsSlice";
 
 export const data: IComponent = {
-  component: "li",
+  component: "div",
   id: "cardWrapper",
   styles: [
     {
@@ -80,22 +80,6 @@ export const data: IComponent = {
         {
           name: "justifyContent",
           value: "space-between",
-        },
-        {
-          name: "borderTop",
-          value: "1px",
-        },
-        {
-          name: "borderRight",
-          value: "1px",
-        },
-        {
-          name: "borderBottom",
-          value: "1px",
-        },
-        {
-          name: "borderColor",
-          value: "#e5e7eb",
         },
         {
           name: "backgroundColor",
