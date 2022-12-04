@@ -3,21 +3,36 @@ import { useAppDispatch } from "../../hooks/redux";
 import { IStyle, updateElement } from "../../store/elementsSlice";
 import Input from "../primitives/Input";
 
+const BorderRadii: Record<string, string> = {
+  borderTopLeftRadius: "TL",
+  borderTopRightRadius: "TR",
+  borderBottomLeftRadius: "BL",
+  borderBottomRightRadius: "BR",
+};
+
 interface Props {
   elementId: string;
+  styles: IStyle[];
 }
 
 const BorderRadius: React.FC<React.PropsWithChildren<Props> & Props> = ({
   elementId,
+  styles,
 }) => {
   const dispatch = useAppDispatch();
+  const borderRadiusStyles = styles.filter((style) =>
+    Object.keys(BorderRadii).includes(style.name)
+  );
 
-  function handleBorderRadiusInput(
-    type: "TopLeft" | "TopRight" | "BottomLeft" | "BottomRight",
-    value: string
-  ) {
+  function getStyleValue(name: string) {
+    return borderRadiusStyles
+      .find((style) => style.name === name)
+      ?.value.replace("px", "");
+  }
+
+  function handleBorderRadiusInput(name: string, value: string) {
     const style: IStyle = {
-      name: `border${type}Radius`,
+      name,
       value,
     };
     dispatch(
@@ -33,30 +48,16 @@ const BorderRadius: React.FC<React.PropsWithChildren<Props> & Props> = ({
     <div className="flex flex-col space-y-4">
       <label>Border Radius</label>
       <div className="grid grid-cols-2 gap-4">
-        <Input
-          label="TL"
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleBorderRadiusInput("TopLeft", event.target.value)
-          }
-        />
-        <Input
-          label="TR"
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleBorderRadiusInput("TopRight", event.target.value)
-          }
-        />
-        <Input
-          label="BL"
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleBorderRadiusInput("BottomLeft", event.target.value)
-          }
-        />
-        <Input
-          label="BR"
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            handleBorderRadiusInput("BottomRight", event.target.value)
-          }
-        />
+        {Object.keys(BorderRadii).map((name) => (
+          <Input
+            key={name}
+            label={BorderRadii[name]}
+            value={getStyleValue(name) || "0"}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              handleBorderRadiusInput(name, event.target.value)
+            }
+          />
+        ))}
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import TextEdit from "./editor/TextEdit";
 const Editor = () => {
   const element = useSelector(getSelectedElement);
   const elementId = element?.id;
+  const styles = element?.styles;
   let isChildString = false;
 
   if (element && element.children) {
@@ -24,7 +25,7 @@ const Editor = () => {
         )}
         <PaddingMargin elementId={elementId} />
         <Sizing elementId={elementId} />
-        <BorderRadius elementId={elementId} />
+        <BorderRadius elementId={elementId} styles={styles} />
       </aside>
     )
   );
