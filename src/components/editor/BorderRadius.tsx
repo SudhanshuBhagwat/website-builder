@@ -52,7 +52,7 @@ const BorderRadius: React.FC<React.PropsWithChildren<Props> & Props> = ({
           <Input
             key={name}
             label={BorderRadii[name]}
-            value={getStyleValue(name) || "0"}
+            value={getStyleValue(name)}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleBorderRadiusInput(name, event.target.value)
             }

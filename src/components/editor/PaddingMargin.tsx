@@ -2,18 +2,28 @@ import { ChangeEvent } from "react";
 import { useAppDispatch } from "../../hooks/redux";
 import { IStyle, updateElement } from "../../store/elementsSlice";
 
+type IBoxSizingType = "margin" | "padding";
+
+type IBoxSizingDirection = "Top" | "Right" | "Bottom" | "Left";
+
 interface Props {
   elementId: string;
+  styles: IStyle[];
 }
 
 const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
   elementId,
+  styles,
 }) => {
   const dispatch = useAppDispatch();
 
+  function getStyleValue(name: string) {
+    return styles.find((style) => style.name === name)?.value.replace("px", "");
+  }
+
   function handleBoxSizingInput(
-    type: "margin" | "padding",
-    direction: "Top" | "Right" | "Bottom" | "Left",
+    type: IBoxSizingType,
+    direction: IBoxSizingDirection,
     value: string
   ) {
     const style: IStyle = {
@@ -38,6 +48,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
         </span>
         <input
           type="number"
+          value={getStyleValue("marginLeft")}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleBoxSizingInput("margin", "Left", event.target.value)
           }
@@ -45,6 +56,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
         />
         <input
           type="number"
+          value={getStyleValue("marginTop")}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleBoxSizingInput("margin", "Top", event.target.value)
           }
@@ -52,6 +64,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
         />
         <input
           type="number"
+          value={getStyleValue("marginRight")}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleBoxSizingInput("margin", "Right", event.target.value)
           }
@@ -59,6 +72,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
         />
         <input
           type="number"
+          value={getStyleValue("marginBottom")}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             handleBoxSizingInput("margin", "Bottom", event.target.value)
           }
@@ -68,6 +82,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
           <div className="h-10 w-2/4 bg-slate-200 rounded-lg"></div>
           <input
             type="number"
+            value={getStyleValue("paddingTop")}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleBoxSizingInput("padding", "Top", event.target.value)
             }
@@ -75,6 +90,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
           />
           <input
             type="number"
+            value={getStyleValue("paddingLeft")}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleBoxSizingInput("padding", "Left", event.target.value)
             }
@@ -82,6 +98,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
           />
           <input
             type="number"
+            value={getStyleValue("paddingRight")}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleBoxSizingInput("padding", "Right", event.target.value)
             }
@@ -89,6 +106,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
           />
           <input
             type="number"
+            value={getStyleValue("paddingBottom")}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               handleBoxSizingInput("padding", "Bottom", event.target.value)
             }

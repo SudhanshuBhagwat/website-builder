@@ -23,8 +23,8 @@ const Editor = () => {
         {isChildString && (
           <TextEdit elementId={elementId} value={element.children} />
         )}
-        <PaddingMargin elementId={elementId} />
-        <Sizing elementId={elementId} />
+        <PaddingMargin elementId={elementId} styles={styles} />
+        <Sizing elementId={elementId} styles={styles} />
         <BorderRadius elementId={elementId} styles={styles} />
       </aside>
     )
