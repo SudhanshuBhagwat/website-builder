@@ -19,7 +19,7 @@ const Editor = () => {
 
   return (
     element && (
-      <aside className="h-full w-[22rem] shadow-md px-6 py-6 flex flex-col space-y-4 overflow-y-auto">
+      <aside className="h-full w-[22rem] shadow-md py-6 flex flex-col space-y-4 overflow-y-auto">
         {isChildString && (
           <TextEdit elementId={elementId} value={element.children} />
         )}

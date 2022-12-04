@@ -45,8 +45,10 @@ const Sizing: React.FC<React.PropsWithChildren<Props> & Props> = ({
 
   return (
     <div className="flex flex-col space-y-4">
-      <label>Size</label>
-      <div className="grid grid-cols-2 gap-4">
+      <h2 className="py-2 px-4 text-sm border-y uppercase tracking-wider font-medium">
+        <label>Size</label>
+      </h2>
+      <div className="grid grid-cols-2 gap-4 px-4">
         {Object.keys(Sizes).map((name) => (
           <Input
             label={Sizes[name]}
