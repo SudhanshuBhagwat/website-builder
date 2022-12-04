@@ -4,6 +4,7 @@ import { renderComponent } from "./render/renderComponent";
 
 const View = () => {
   const data: IComponent = useSelector(selectElements);
+  console.log(data);
 
   return (
     <div>
@@ -11,7 +12,7 @@ const View = () => {
         Component
       </label>
       <div id="component-view">
-        <div className="h-80 aspect-video shadow-xl border flex justify-center items-center rounded-md">
+        <div className="h-80 aspect-video shadow-xl border flex justify-center items-center">
           <div>{renderComponent(data)}</div>
         </div>
       </div>

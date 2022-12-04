@@ -9,6 +9,9 @@ const stylesMap = (styles: any) => {
 };
 
 export const renderComponent = (config: any) => {
+  if (!config) {
+    return;
+  }
   if (config.component !== "undefined") {
     return createElement(
       config.component,

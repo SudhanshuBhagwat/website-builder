@@ -1,6 +1,6 @@
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
-import { data } from "../data/data";
+// import { data } from "../data/data";
 
 const SELECTED_STYLE = {
   name: "border",
@@ -27,7 +27,7 @@ interface ElementsState {
 }
 
 const initialState: ElementsState = {
-  elements: data,
+  elements: undefined,
   selectedElementId: undefined,
 };
 
@@ -42,6 +42,12 @@ function findElement(elementId: string, tree: any): any {
     return findElement(elementId, child);
   }
 }
+
+function _addElement(
+  element: keyof HTMLElementTagNameMap,
+  parent: IComponent | undefined,
+  tree: IComponent | undefined
+) {}
 
 function updateText(treeNode: IComponent, value: string) {
   if (value.length === 0) {
@@ -123,6 +129,41 @@ export const elementsSlice = createSlice({
   name: "elements",
   initialState,
   reducers: {
+    addElement: (
+      state,
+      action: PayloadAction<{
+        element: keyof HTMLElementTagNameMap;
+        parent: IComponent | undefined;
+      }>
+    ) => {
+      if (action.payload.parent || !state.elements) {
+        state.elements = {
+          component: action.payload.element,
+          id: new Date().toISOString(),
+          styles: [
+            {
+              name: "height",
+              value: "20px",
+            },
+            {
+              name: "width",
+              value: "20px",
+            },
+            {
+              name: "backgroundColor",
+              value: "red",
+            },
+          ],
+          children: [],
+        };
+      } else {
+        _addElement(
+          action.payload.element,
+          action.payload.parent,
+          state.elements
+        );
+      }
+    },
     selectElement: (state, action: PayloadAction<string>) => {
       if (state.selectedElementId) {
         if (state.selectedElementId === action.payload) {
@@ -156,7 +197,8 @@ export const elementsSlice = createSlice({
   },
 });
 
-export const { selectElement, updateElement } = elementsSlice.actions;
+export const { addElement, selectElement, updateElement } =
+  elementsSlice.actions;
 
 export const selectElements = (state: RootState) => state.elements.elements;
 export const getSelectedElement = ({ elements }: RootState) => {
