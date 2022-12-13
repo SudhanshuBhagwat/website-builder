@@ -54,7 +54,7 @@ const Sizing: React.FC<React.PropsWithChildren<Props> & Props> = ({
             label={Sizes[name]}
             value={getStyleValue(name)}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleSizingInput("width", event.target.value)
+              handleSizingInput(name, event.target.value)
             }
           />
         ))}

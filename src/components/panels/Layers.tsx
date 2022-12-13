@@ -8,6 +8,7 @@ const Layers: React.FC<React.PropsWithChildren<Props> & Props> = () => {
   const elements: IComponent = useSelector(selectElements);
 
   function renderElements(tree: IComponent) {
+    if (!tree) return;
     const hasChildren: boolean = Array.isArray(tree.children);
     return (
       <div key={tree.id}>

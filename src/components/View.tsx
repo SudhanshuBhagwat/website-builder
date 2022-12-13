@@ -4,7 +4,6 @@ import { renderComponent } from "./render/renderComponent";
 
 const View = () => {
   const data: IComponent = useSelector(selectElements);
-  console.log(data);
 
   return (
     <div>
