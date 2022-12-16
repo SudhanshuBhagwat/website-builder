@@ -51,6 +51,7 @@ const Sizing: React.FC<React.PropsWithChildren<Props> & Props> = ({
       <div className="grid grid-cols-2 gap-4 px-4">
         {Object.keys(Sizes).map((name) => (
           <Input
+            key={name}
             label={Sizes[name]}
             value={getStyleValue(name)}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>

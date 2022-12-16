@@ -1,16 +1,22 @@
+import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../hooks/redux";
-import { addElement } from "../../store/elementsSlice";
+import {
+  addElement,
+  getSelectedElement,
+  IComponent,
+} from "../../store/elementsSlice";
 
 const AvailableElements = ["div"];
 
 const Elements = () => {
+  const selectedComponent: IComponent = useSelector(getSelectedElement);
   const dispatch = useAppDispatch();
 
   function addElementHandler(element: any) {
     dispatch(
       addElement({
         element,
-        parent: undefined,
+        parent: selectedComponent,
       })
     );
   }

@@ -31,6 +31,28 @@ const initialState: ElementsState = {
   selectedElementId: undefined,
 };
 
+function createPlaceholderElement(element: keyof HTMLElementTagNameMap) {
+  return {
+    component: element,
+    id: new Date().toISOString(),
+    styles: [
+      {
+        name: "height",
+        value: "20px",
+      },
+      {
+        name: "width",
+        value: "20px",
+      },
+      {
+        name: "border",
+        value: "1px solid gray",
+      },
+    ],
+    children: [],
+  };
+}
+
 function findElement(elementId: string, tree: any): any {
   if (tree.id === elementId) {
     return tree;
@@ -45,9 +67,21 @@ function findElement(elementId: string, tree: any): any {
 
 function _addElement(
   element: keyof HTMLElementTagNameMap,
-  parent: IComponent | undefined,
-  tree: IComponent | undefined
-) {}
+  parent: IComponent,
+  tree: IComponent
+) {
+  if (tree.id === parent.id) {
+    if (Array.isArray(tree.children)) {
+      tree.children.push(createPlaceholderElement(element));
+      console.log(tree);
+    }
+  }
+  if (Array.isArray(tree.children)) {
+    tree.children.map((child: IComponent) => {
+      _addElement(element, parent, child);
+    });
+  }
+}
 
 function updateText(treeNode: IComponent, value: string) {
   if (value.length === 0) {
@@ -113,6 +147,23 @@ function addStyle(elementId: string, tree: IComponent, style: IStyle) {
 function removeStyle(elementId: string, tree: IComponent, style: IStyle) {
   if (tree.id === elementId) {
     if (tree.styles) {
+      if (style.name === "border") {
+        const hasBorder = tree.styles.find(
+          (currStyle: IStyle) => currStyle.name === "border"
+        );
+        if (hasBorder) {
+          tree.styles = tree.styles.map((currStyle: IStyle) => {
+            if (currStyle.name === "border") {
+              return {
+                name: "border",
+                value: "1px solid gray",
+              };
+            }
+            return currStyle;
+          });
+          return;
+        }
+      }
       tree.styles = tree.styles.filter(
         (currStyle: IStyle) => currStyle.name !== style.name
       );
@@ -136,26 +187,8 @@ export const elementsSlice = createSlice({
         parent: IComponent | undefined;
       }>
     ) => {
-      if (action.payload.parent || !state.elements) {
-        state.elements = {
-          component: action.payload.element,
-          id: new Date().toISOString(),
-          styles: [
-            {
-              name: "height",
-              value: "20px",
-            },
-            {
-              name: "width",
-              value: "20px",
-            },
-            {
-              name: "backgroundColor",
-              value: "red",
-            },
-          ],
-          children: [],
-        };
+      if (!action.payload.parent || !state.elements) {
+        state.elements = createPlaceholderElement(action.payload.element);
       } else {
         _addElement(
           action.payload.element,
