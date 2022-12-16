@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import { useAppDispatch } from "../../hooks/redux";
 import { IStyle, updateElement } from "../../store/elementsSlice";
 import Input from "../primitives/Input";
+import Panel from "../primitives/Panel";
 
 const BorderRadii: Record<string, string> = {
   borderTopLeftRadius: "TL",
@@ -45,10 +46,7 @@ const BorderRadius: React.FC<React.PropsWithChildren<Props> & Props> = ({
   }
 
   return (
-    <div className="flex flex-col space-y-4">
-      <h2 className="py-2 px-4 text-sm border-y uppercase tracking-wider font-medium">
-        <label>Border Radius</label>
-      </h2>
+    <Panel title={"Border Radius"}>
       <div className="grid grid-cols-2 gap-4 px-4">
         {Object.keys(BorderRadii).map((name) => (
           <Input
@@ -61,7 +59,7 @@ const BorderRadius: React.FC<React.PropsWithChildren<Props> & Props> = ({
           />
         ))}
       </div>
-    </div>
+    </Panel>
   );
 };
 

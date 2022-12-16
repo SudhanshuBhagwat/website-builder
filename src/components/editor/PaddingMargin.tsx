@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 import { useAppDispatch } from "../../hooks/redux";
 import { IStyle, updateElement } from "../../store/elementsSlice";
+import Panel from "../primitives/Panel";
 
 type IBoxSizingType = "margin" | "padding";
 
@@ -40,10 +41,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
   }
 
   return (
-    <div className="flex flex-col space-y-4">
-      <h2 className="py-2 px-4 text-sm border-y uppercase tracking-wider font-medium">
-        <label>Padding-Margin</label>
-      </h2>
+    <Panel title={"Padding-Margin"}>
       <div className="px-4">
         <div className="border-2 border-dashed rounded-lg h-52 relative px-10 py-6 flex justify-center items-center">
           <span className="uppercase tracking-wider text-xs ml-4 mt-2 block absolute top-0 left-0">
@@ -121,7 +119,7 @@ const PaddingMargin: React.FC<React.PropsWithChildren<Props> & Props> = ({
           </div>
         </div>
       </div>
-    </div>
+    </Panel>
   );
 };
 

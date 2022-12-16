@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import { useAppDispatch } from "../../hooks/redux";
 import { IStyle, updateElement } from "../../store/elementsSlice";
 import Input from "../primitives/Input";
+import Panel from "../primitives/Panel";
 
 const Sizes: Record<string, string> = {
   width: "W",
@@ -44,10 +45,7 @@ const Sizing: React.FC<React.PropsWithChildren<Props> & Props> = ({
   }
 
   return (
-    <div className="flex flex-col space-y-4">
-      <h2 className="py-2 px-4 text-sm border-y uppercase tracking-wider font-medium">
-        <label>Size</label>
-      </h2>
+    <Panel title={"Sizing"}>
       <div className="grid grid-cols-2 gap-4 px-4">
         {Object.keys(Sizes).map((name) => (
           <Input
@@ -60,7 +58,7 @@ const Sizing: React.FC<React.PropsWithChildren<Props> & Props> = ({
           />
         ))}
       </div>
-    </div>
+    </Panel>
   );
 };
 
